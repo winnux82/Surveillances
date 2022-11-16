@@ -3,7 +3,7 @@
 // Menu
 require_once('menu.php');
 
-//préparation de la requete 
+//préparation de la requete
 $requete = 'SELECT * FROM habitations';
 //requete
 $q = $db->prepare($requete) or die(print_r($db->errorInfo()));
@@ -30,7 +30,7 @@ if (isset($position)) {
         exit;
     }
 }
-
+require_once('habitations_listing.php');
 ?>
 
 <!DOCTYPE html>
@@ -44,55 +44,41 @@ if (isset($position)) {
 </head>
 
 <body>
-    <form action="sauvegardehabitation.php" method="POST" enctype="multipart/form-data">
+    <form action="habitation_validation.php" method="POST" enctype="multipart/form-data">
 <h1>Validation surveillances habitations</h1>
         <fieldset>
             <?php if ($position === null) : ?>
-                <legend>Ajouter une surveillance d'habitation</legend>
+                <legend>Valider surveillance d'habitation</legend>
             <?php else : ?>
                 <legend>Modification d'une habitation</legend>
             <?php endif ?>
             <table>
 
             <div class="m-1">
+
                 <tr>
-                    <td>
-                        ID :
-                    </td>
-                    <td><input type="text" class="form-control m-1" name="id" value="<?= $habitation['id'] ?? '' ?>"></td>
+                    <td><h5><span class="label label-default">Matricule</span></h5></td>
+
+                    <td><div class="input-group m-1"><select name="agent" class="form-select form-select-lg mb-2"><?php echo ShowAgent(); ?>
+                                <option selected="selected"><?= $infocontact['agent']?></option>
+                            </select></td>
+
+                </div></td>
                 </tr>
                 <tr>
-                    <td>Adresse : </td>
-                    <td><div class="input-group m-1">
-                    <input type="text" class="form-control m-1" maxlength="50" name="adresse" required autofocus placeholder="Obligatoire" value="<?= $habitation['adresse'] ?? '' ?>"></div></td>
-                </tr>
-                <tr>
-                    <td>Localité : </td>
-                    <td><input type="number" class="form-control m-1" maxlength="10" name="localite" required placeholder="Obligatoire" value="<?= $habitation['localite'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td>Date début : </td>
-                    <td><input type="date" class="form-control m-1" name="datedebut" value="<?= $habitation['datedebut'] ?? '' ?>"></td>
+                    <td><h5><span class="label label-default">Habitations</span></h5></td>
+                    <td><div class="input-group m-1"><select name="adresse" class="form-select form-select-lg mb-2"><?php echo ShowHabitation(); ?>
+                                <option selected="selected"><?= $infocontact['habitation']?></option>
+                            </select></td>
+                </div></td>
                 </tr>
 
                 <tr>
-                    <td>Date de fin : </td>
-                    <td><input type="date" class="form-control m-1" name="datefin" value="<?= $habitation['datefin'] ?? '' ?>"></td>
+                    <td><h5><span class="label label-default">Message : </span></h5></td>
+                    <td><div class="mb-3"><textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="4"></textarea></div></td>
                 </tr>
+                <tr><td> </td></tr>
 
-                <tr>
-                    <td>Mesures: </td>
-                    <td><input type="text" class="form-control m-1" maxlength="50" name="mesures" placeholder="Système d'alarme, éclairage, chien, société de gardiennage, présence d'un tiers" value="<?= $habitation['mesures'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td>Véhicule : </td>
-                    <td><input type="text" class="form-control m-1" maxlength="50" name="vehicule" placeholder="Ex. Marque Modèle Plaque garage" value="<?= $habitation['vehicule'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" m-1>
-                        <?php if (isset($position)) echo 'Dernière modification : ' .  $habitation['dateupdate'] ?? ''; ?>
-                    </td>
-                </tr>
 
                 <table>
                     <tr>
@@ -100,7 +86,7 @@ if (isset($position)) {
                             <input type="reset" name="bInit" value="Réinitialiser" class="btn btn-secondary m-1" />
                         </td>
                         <td>
-                            &nbsp;<input type="submit" name="bAjouthabitation" value="<?= $position ? "Modifier" : "Ajouter" ?>" class="btn btn-primary m-1">
+                            &nbsp;<input type="submit" name="bValiderHabitation" value="<?= $position ? "Modifier" : "Ajouter" ?>" class="btn btn-primary m-1">
                         </td>
                     </tr>
 
@@ -115,34 +101,26 @@ if (isset($position)) {
 
     // Exécution de la requête
     echo '<div class="right_Side">';
-    echo '<h1><i class="fa fa-map-marker" aria-hidden="true"></i> Liste des habitations </h1><br>';
+    echo '<h1><i class="fa fa-map-marker" aria-hidden="true"></i> Liste des dernières validations </h1><br>';
     echo '<table border="1" class="table table-light">';
     echo '<thead class="thead-light">
                                 <tr>
                                 <th>id</th>
+                                <th>Date</th>
                                 <th>Adresse</th>
-                                <th>Localité</th>
-                                <th>Date Début</th>
-                                <th>Date Fin</th>
-                                <th>Mesures</th>
-                                <th>Véhicule</th>
-                                <th>Modifier</th>
-                                <th>Supprimer</th>
-                                    </tr>
+                                <th>Agent</th>
+                                <th>Message</th>
+                                </tr>
                                 </thead>';
-    $listehabitations = $db->query('select*from habitations order by adresse asc') or die(print_r($db->errorInfo()));
+    $listehabitations = $db->query('select*from validations order by idvalidations desc') or die(print_r($db->errorInfo()));
     while ($habitation = $listehabitations->fetch()) {
 
         echo '<tr>';
-        echo '<td>' . $habitation['id'] . '</td>';
-        echo '<td>' . $habitation['adresse'] . '</td>';
-        echo '<td>' . $habitation['localite'] . '</td>';
-        echo '<td>' . $habitation['datedebut'] . '</td>';
-        echo '<td>' . $habitation['datefin'] . '</td>';
-        echo '<td>' . $habitation['mesures'] . '</td>';
-        echo '<td>' . $habitation['vehicule'] . '</td>';
-        echo '<td><a href="habitations.php?id=' . $habitation['id'] . '">Modifier</a></td>';
-        echo '<td><a onclick="return confirm(\'Voulez-vous vraiment supprimer cet élement ?\')" href="habitations.php?delhabitations=' . $habitation['id'] . ' " >Supprimer</a></td></tr>';
+        echo '<td>' . $habitation['idvalidations'] . '</td>';
+        echo '<td>' . $habitation['date'] . '</td>';
+        echo '<td>' . $habitation['habitation'] . '</td>';
+        echo '<td>' . $habitation['matricule'] . '</td>';
+        echo '<td>' . $habitation['message'] . '</td>';
     }
 
 

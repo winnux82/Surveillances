@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('Europe/Brussels');
 // Menu
 require_once('menu.php');
 
@@ -34,9 +34,9 @@ if (isset($position)) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,8 +44,8 @@ if (isset($position)) {
 </head>
 
 <body>
-    <form action="sauvegardehabitation.php" method="POST" enctype="multipart/form-data">
-<h1>Inscription surveillances habitations </h1>
+    <form action="habitation_sauvegarde.php" method="POST" enctype="multipart/form-data">
+        <h1>Inscription surveillances habitations </h1>
         <fieldset>
             <?php if ($position === null) : ?>
                 <legend>Ajouter une surveillance d'habitation</legend>
@@ -54,64 +54,66 @@ if (isset($position)) {
             <?php endif ?>
             <table>
 
-            <div class="m-1">
-                <tr>
-                    <td>
-                        ID :
-                    </td>
-                    <td><input type="text" class="form-control m-1" name="id" value="<?= $habitation['id'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td>Adresse : </td>
-                    <td><div class="input-group m-1">
-                    <input type="text" class="form-control m-1" maxlength="50" name="adresse" required autofocus placeholder="Obligatoire" value="<?= $habitation['adresse'] ?? '' ?>"></div></td>
-                </tr>
-                <tr>
-                    <td>Localité : </td>
-                    <td><input type="number" class="form-control m-1" maxlength="10" name="localite" required placeholder="Obligatoire" value="<?= $habitation['localite'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td>Date début : </td>
-                    <td><input type="date" class="form-control m-1" name="datedebut" value="<?= $habitation['datedebut'] ?? '' ?>"></td>
-                </tr>
-
-                <tr>
-                    <td>Date de fin : </td>
-                    <td><input type="date" class="form-control m-1" name="datefin" value="<?= $habitation['datefin'] ?? '' ?>"></td>
-                </tr>
-
-                <tr>
-                    <td>Mesures: </td>
-                    <td><input type="text" class="form-control m-1" maxlength="50" name="mesures" placeholder="Système d'alarme, éclairage, chien, société de gardiennage, présence d'un tiers" value="<?= $habitation['mesures'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td>Véhicule : </td>
-                    <td><input type="text" class="form-control m-1" maxlength="50" name="vehicule" placeholder="Ex. Marque Modèle Plaque garage" value="<?= $habitation['vehicule'] ?? '' ?>"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" m-1>
-                        <?php if (isset($position)) echo 'Dernière modification : ' .  $habitation['dateupdate'] ?? ''; ?>
-                    </td>
-                </tr>
-
-                <table>
+                <div class="m-1">
                     <tr>
                         <td>
-                            <input type="reset" name="bInit" value="Réinitialiser" class="btn btn-secondary m-1" />
+                            ID :
                         </td>
+                        <td><input type="text" class="form-control m-1" name="id" value="<?= $habitation['id'] ?? '' ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Adresse : </td>
                         <td>
-                            &nbsp;<input type="submit" name="bAjouthabitation" value="<?= $position ? "Modifier" : "Ajouter" ?>" class="btn btn-primary m-1">
+                            <div class="input-group m-1">
+                                <input type="text" class="form-control m-1" maxlength="50" name="adresse" required autofocus placeholder="Obligatoire" value="<?= $habitation['adresse'] ?? '' ?>">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Localité : </td>
+                        <td><input type="number" class="form-control m-1" maxlength="10" name="localite" required placeholder="Obligatoire" value="<?= $habitation['localite'] ?? '' ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Date début : </td>
+                        <td><input type="datetime-local" class="form-control m-1" name="datedebut" value="<?= $habitation['datedebut'] ?? '' ?>"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Date de fin : </td>
+                        <td><input type="datetime-local" class="form-control m-1" name="datefin" value="<?= $habitation['datefin'] ?? '' ?>"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Mesures: </td>
+                        <td><input type="text" class="form-control m-1" maxlength="50" name="mesures" placeholder="Système d'alarme, éclairage, chien, société de gardiennage, présence d'un tiers" value="<?= $habitation['mesures'] ?? '' ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Véhicule : </td>
+                        <td><input type="text" class="form-control m-1" maxlength="50" name="vehicule" placeholder="Ex. Marque Modèle Plaque garage" value="<?= $habitation['vehicule'] ?? '' ?>"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" m-1>
+                            <?php if (isset($position)) echo 'Dernière modification : ' .  $habitation['dateupdate'] ?? ''; ?>
                         </td>
                     </tr>
 
-                </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="reset" name="bInit" value="Réinitialiser" class="btn btn-secondary m-1" />
+                            </td>
+                            <td>
+                                &nbsp;<input type="submit" name="bAjouthabitation" value="<?= $position ? "Modifier" : "Ajouter" ?>" class="btn btn-primary m-1">
+                            </td>
+                        </tr>
+
+                    </table>
 
         </fieldset>
     </form>
 
+<?php
 
-
-    <?php
 
     // Exécution de la requête
     echo '<div class="right_Side">';
@@ -130,15 +132,21 @@ if (isset($position)) {
                                 <th>Supprimer</th>
                                     </tr>
                                 </thead>';
-    $listehabitations = $db->query('select*from habitations order by adresse asc') or die(print_r($db->errorInfo()));
+
+
+    $requetesql = "select*, DATE_FORMAT(datedebut,'%d-%m-%Y %H:%i:%s') as datededébut, DATE_FORMAT(datefin,'%d-%m-%Y %H:%i:%s') as datedefin from gdp.habitations where datedebut <= now() and datefin >= now() order by datedebut asc";
+    //$requetesql = 'select*from gdp.habitations where datedebut <= now() and datefin >= now() order by adresse desc';
+    $listehabitations = $db->query($requetesql) or die(print_r($db->errorInfo()));
     while ($habitation = $listehabitations->fetch()) {
+        //$datedebut = DateTime::createFromFormat('d-M-Y', $habitation['datedebut']) or die(print_r($db->errorInfo()));
+        //$datedebut->format('d-m-Y H:i:s');
 
         echo '<tr>';
         echo '<td>' . $habitation['id'] . '</td>';
         echo '<td>' . $habitation['adresse'] . '</td>';
         echo '<td>' . $habitation['localite'] . '</td>';
-        echo '<td>' . $habitation['datedebut'] . '</td>';
-        echo '<td>' . $habitation['datefin'] . '</td>';
+        echo '<td>' . $habitation['datededébut'] . '</td>';
+        echo '<td>' . $habitation['datedefin'] . '</td>';
         echo '<td>' . $habitation['mesures'] . '</td>';
         echo '<td>' . $habitation['vehicule'] . '</td>';
         echo '<td><a href="habitations.php?id=' . $habitation['id'] . '">Modifier</a></td>';
@@ -147,27 +155,22 @@ if (isset($position)) {
 
 
     echo '</table><br><br><br>';
-    
+
 
     //modifier un agent
     if (isset($_GET['id'])) {
-        if(!is_numeric($_GET['id']))
-        {
+        if (!is_numeric($_GET['id'])) {
             echo alert("Que du numérique mon ami :)");
             exit;
         }
-
-       
         $req = $db->query('select*from habitations where id=' . $_GET['id'] . '') or die(print_r($db->errorInfo()));
         if ($req->rowCount() === 0) {
             echo alert("Cette habitation n'existe pas ! :)");
             exit;
         }
-
         while ($donnees = $listehabitations->fetch()) {
             $habitation = $donnees;
-  
-        }  
+        }
     }
 
     //supprimer une habitation
@@ -180,9 +183,9 @@ if (isset($position)) {
         }
         header("Refresh:1");
         exit;
-        
     }
     ?>
 
 </body>
+
 </html>

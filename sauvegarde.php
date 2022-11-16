@@ -1,13 +1,14 @@
 <?php
 // connection à la base 
 require_once('config.php');
-require_once('functions.php');
+require_once('./src/functions.php');
 
 //on récupère l'agent
 $agent = $_POST;
-
-print_r($agent);
-
+/*
+print_r($_POST);
+exit;
+*/
 $position = verify_input($agent['id']);
 $position = (int) $position;
 

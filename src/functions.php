@@ -1,28 +1,38 @@
-<?php
+   
+    <?php
 
-//Fonction listing Catégorie
-function ShowCategory()
+//Fonction listing Agents
+function ShowAgent()
 {
   include('config.php');
-  $inter = '<option value="-1">Choisissez une catégorie</option>';
-  $query = $db->query('select * from category order by name ') or die(print_r($bdd->errorInfo()));;
+  $inter = '<option value="-1">Choisissez un agent</option>';
+  $query = $db->query('select * from agents order by matricule ') or die(print_r($bdd->errorInfo()));;
   while ($donnees = $query->fetch()) {
-    $inter .= '<option value="' . $donnees['name'] . '">' . $donnees['name'] . '</option>';
+    $inter .= '<option value="' . $donnees['matricule'] . '">' . $donnees['matricule'] . '</option>';
   }
   return $inter;
 }
 
-//Fonction listing Pays
-function ShowCountry()
+
+//Fonction listing Surveillances habitations
+function ShowHabitation()
 {
   include('config.php');
-  $inter = '<option value="-1">Choisissez un pays</option>';
-  $query = $db->query('select * from country order by name ') or die(print_r($bdd->errorInfo()));;
+  $inter = '<option value="-1">Choisissez l\'habitation à valider</option>';
+  $query = $db->query('select * from habitations order by adresse ') or die(print_r($bdd->errorInfo()));;
   while ($donnees = $query->fetch()) {
-    $inter .= '<option value="' . $donnees['name'] . '">' . $donnees['name'] . '</option>';
+    $inter .= '<option value="' . $donnees['adresse'] . '">' . $donnees['adresse'] . '</option>';
   }
   return $inter;
 }
+
+//Fonction convertir la date
+function convertiondedate($date) {
+  
+  $blabla = DateTime::createFromFormat('j-M-Y', $date);
+  echo $blabla->format('d-m-Y');
+}
+
 
 //Fonction Bonjour
 function DireBonjour()
@@ -77,6 +87,14 @@ function verify_input($data) {
   return $data;
 }
 
+function ConvertDate($date) {
+  $orgDate = $date;  
+  $date = str_replace('-"', '/', $orgDate);  
+  $newDate = date("Y/m/d", strtotime($date));  
+  echo "New date format is: ".$newDate. " (YYYY/MM/DD)";  
+}
+
+
 // fonction Alerte
 function alert($erreur){
   $alert = '<div class="alert alert-warning">';
@@ -86,3 +104,4 @@ function alert($erreur){
   exit;
 
 }
+

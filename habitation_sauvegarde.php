@@ -1,7 +1,10 @@
 <?php
+
+date_default_timezone_set('Europe/Paris');
+
 // connection à la base 
 require_once('config.php');
-require_once('functions.php');
+require_once('./src/functions.php');
 
 //on récupère l'agent
 $habitation = $_POST;
@@ -29,7 +32,7 @@ if (isset($_POST['bAjouthabitation'])) {
         //sinon update
     
         print_r($habitation);
-        $db->query('update habitations set nom="' . $habitation['lastname'] . '", prenom="' . $habitation['firstname'] . '",datedenaissance="' . $habitation['date'] .'",matricule="' . $habitation['matricule'] . '",adresse="' . $habitation['adresse'] . '",cp="' . $habitation['cp'] . '",tel="' . $habitation['tel'] . '", dateupdate="' . date('l j F Y h:i:s A') . '" where id="' . $position . '"') or die(print_r($db->errorInfo()));
+        $db->query('update habitations set adresse="' . $habitation['adresse'] . '", localite="' . $habitation['localite'] . '",demandeur="' . $habitation['demandeur'] .'",datedebut="' . $habitation['datedebut'] . '",datefin="' . $habitation['datefin'] . '", dateupdate="' . date('l j F Y h:i:s A') . '" where id="' . $position . '"') or die(print_r($db->errorInfo()));
 
         //Mise à jour de la date d'update
         //$db->query('update contact set creadate="' . date('l j F Y h:i:s A') . '", user="' . $_SESSION["username"] . '" where id="' . $_POST['contactid'] . '"') or die(print_r($db->errorInfo()));

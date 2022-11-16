@@ -17,7 +17,21 @@ require_once('menu.php');
 </head>
 
 <body>
- coucou
+
+<script>
+function foo() {
+   //alert("Submit button clicked!");
+   x0p('Message', 'Hello world!', 'info');
+    }
+
+
+
+</script>
+<form action="" method="post">
+<input type="submit" value="submit" onclick="return foo();" />
+</form>
+
+
 </body>
 
 </html>

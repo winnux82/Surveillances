@@ -27,6 +27,11 @@ function foo() {
 
 
 </script>
+
+<textarea class="form-control" id="txtArea" name="mesures" rows="4" cols="50">
+<?= $habitation['mesures'] ?? '' ?></textarea>
+
+
 <form action="" method="post">
 <input type="submit" value="submit" onclick="return foo();" />
 </form>

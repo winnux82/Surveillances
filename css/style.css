@@ -243,6 +243,16 @@ footer {
     font-size: 0.7em;
 }
 
+/*Tableau d'habitations*/
+
+/* .table-hover tbody tr:hover td {
+    background: aqua;
+} */
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #555;
+    cursor: pointer;
+  }
 
 /*
 input[type=text] {

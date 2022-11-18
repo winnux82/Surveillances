@@ -44,6 +44,9 @@ if (isset($position)) {
 </head>
 
 <body>
+    <div class="contenu m-2" >
+
+
     <form action="habitation_sauvegarde.php" method="POST" enctype="multipart/form-data">
         <h1>Inscription surveillances habitations </h1>
         <fieldset>
@@ -62,10 +65,18 @@ if (isset($position)) {
                         <td><input type="text" class="form-control m-1" name="id" value="<?= $habitation['id'] ?? '' ?>"></td>
                     </tr>
                     <tr>
+                        <td>Demandeur : </td>
+                        <td>
+                            <div class="input-group m-1">
+                                <input type="text" class="form-control m-1" maxlength="50" name="demandeur" required autofocus placeholder="Obligatoire" value="<?= $habitation['demandeur'] ?? '' ?>">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Adresse : </td>
                         <td>
                             <div class="input-group m-1">
-                                <input type="text" class="form-control m-1" maxlength="50" name="adresse" required autofocus placeholder="Obligatoire" value="<?= $habitation['adresse'] ?? '' ?>">
+                                <input type="text" class="form-control m-1" maxlength="50" name="adresse" required placeholder="Obligatoire" value="<?= $habitation['adresse'] ?? '' ?>">
                             </div>
                         </td>
                     </tr>
@@ -85,7 +96,9 @@ if (isset($position)) {
 
                     <tr>
                         <td>Mesures: </td>
-                        <td><input type="text" class="form-control m-1" maxlength="50" name="mesures" placeholder="Système d'alarme, éclairage, chien, société de gardiennage, présence d'un tiers" value="<?= $habitation['mesures'] ?? '' ?>"></td>
+                            <td>
+                                <textarea class="form-control" id="txtArea" name="mesures" rows="4" cols="50"><?= $habitation['mesures'] ?? '' ?></textarea>
+                            </td>
                     </tr>
                     <tr>
                         <td>Véhicule : </td>
@@ -112,27 +125,24 @@ if (isset($position)) {
         </fieldset>
     </form>
 
-<?php
-
-
-    // Exécution de la requête
-    echo '<div class="right_Side">';
-    echo '<h1><i class="fa fa-map-marker" aria-hidden="true"></i> Liste des habitations </h1><br>';
-    echo '<table border="1" class="table table-light">';
-    echo '<thead class="thead-light">
+<div class="right_Side">
+<h1><i class="fa fa-map-marker" aria-hidden="true"></i> Liste des habitations </h1><br>
+<table border="1" class="table table-light">
+<thead class="thead-light">
                                 <tr>
                                 <th>id</th>
                                 <th>Adresse</th>
                                 <th>Localité</th>
                                 <th>Date Début</th>
                                 <th>Date Fin</th>
-                                <th>Mesures</th>
+                                
                                 <th>Véhicule</th>
                                 <th>Modifier</th>
                                 <th>Supprimer</th>
                                     </tr>
-                                </thead>';
+                                </thead>
 
+                                <?php
 
     $requetesql = "select*, DATE_FORMAT(datedebut,'%d-%m-%Y %H:%i:%s') as datededébut, DATE_FORMAT(datefin,'%d-%m-%Y %H:%i:%s') as datedefin from gdp.habitations where datedebut <= now() and datefin >= now() order by datedebut asc";
     //$requetesql = 'select*from gdp.habitations where datedebut <= now() and datefin >= now() order by adresse desc';
@@ -147,7 +157,7 @@ if (isset($position)) {
         echo '<td>' . $habitation['localite'] . '</td>';
         echo '<td>' . $habitation['datededébut'] . '</td>';
         echo '<td>' . $habitation['datedefin'] . '</td>';
-        echo '<td>' . $habitation['mesures'] . '</td>';
+        // echo '<td>' . $habitation['mesures'] . '</td>';
         echo '<td>' . $habitation['vehicule'] . '</td>';
         echo '<td><a href="habitations.php?id=' . $habitation['id'] . '">Modifier</a></td>';
         echo '<td><a onclick="return confirm(\'Voulez-vous vraiment supprimer cet élement ?\')" href="habitations.php?delhabitations=' . $habitation['id'] . ' " >Supprimer</a></td></tr>';
@@ -185,7 +195,7 @@ if (isset($position)) {
         exit;
     }
     ?>
-
+    </div>
 </body>
 
 </html>

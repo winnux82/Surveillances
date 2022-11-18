@@ -1,0 +1,20 @@
+{
+  "name": "surveillances",
+  "version": "1.1.2",
+  "description": "Surveillances Habitations pour le service GDP Mouscron BE",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winnux82/Surveillances.git"
+  },
+  "author": "WnX",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/winnux82/Surveillances/issues"
+  },
+  "homepage": "https://github.com/winnux82/Surveillances#readme"
+}

@@ -44,7 +44,7 @@ $bootstrap = '"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.m
             <tD><img src="gdp.jpg" alt=""></td>
             <td>
               <H1 class="m-2 text-dark">Surveillances habitations v<?=$version?></h1>
-              <?php DireBonjour() ?>. <a href="logout.php" class="btn btn-danger m-2"><i class="fa fa-power-off" aria-hidden="true"></i> Se déconnecter</a>
+              <a href="logout.php" class="btn btn-danger m-2"><i class="fa fa-power-off" aria-hidden="true"></i> Se déconnecter</a>
             </td>
         </table>
       </div>

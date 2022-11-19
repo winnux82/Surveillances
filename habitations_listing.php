@@ -59,9 +59,9 @@ while($row = mysqli_fetch_array($result))
             <b>Date retour : </b><?php echo $row['dateFinFormat']; ?><br>
             <b>Mesures de sécurité: </b><?php echo $row['mesures']; ?><br>
             <b>Véhicule: </b><?php echo $row['vehicule']; ?><br>
-            </div>
+            </div><br>
           <a href="https://www.google.com/maps/place/<?=$row['adresse']?>,+<?=$row['localite']?>+Mouscron" target="_blank">
-          <img src="/images/googlemap100.png" alt="googlemap">
+          <img src="/images/googlemap100.png" alt="googlemap" width="50">
           </a>
             <h5>
                 <div class="barre horizontale">_______________________________________________________</div></h5>
@@ -104,10 +104,10 @@ while($row = mysqli_fetch_array($result))
 <script type="text/javascript">
 
 
-// $('#tableauHabitations tr td button[data-target]').on("click", function(e) {
-//     e.stopPropagation();
-//     document.location = $(this).data('target'); 
-// });
+$('#tableauHabitations tr').on("click", function(e) {
+    document.location = "#myModal8"; 
+});
+
 
 
 

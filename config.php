@@ -13,6 +13,9 @@
 </head>
 
 <?php
+
+date_default_timezone_set('Europe/Brussels');
+
 $version = "0.0.1";
 
 $user = 'eleve';

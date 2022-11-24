@@ -45,7 +45,7 @@ require_once('habitations_listing.php');
 
 <body>
     <?php
-
+date_default_timezone_set('Europe/Brussels');
     // Exécution de la requête
     echo '<div class="right_Side">';
     echo '<h1><i class="fa fa-map-marker" aria-hidden="true"></i> Liste des dernières validations </h1><br>';
@@ -59,13 +59,15 @@ require_once('habitations_listing.php');
                                 <th>Message</th>
                                 </tr>
                                 </thead>';
-    $listehabitations = $db->query('select*from validations order by idvalidations desc limit 5') or die(print_r($db->errorInfo()));
+    /*$listehabitations = $db->query("select*, DATE_FORMAT(date,'%d-%m-%Y %H:%i') as dateFormat, from validations order by idvalidations desc limit 5") or die(print_r($db->errorInfo()));
     while ($habitation = $listehabitations->fetch()) {
-
+*/
+$listehabitations = $db->query("select *, DATE_FORMAT(date,'%d-%m-%Y %H:%i') as DateFormatée from gdp.validations order by idvalidations desc limit 5") or die(print_r($db->errorInfo()));
+while ($habitation = $listehabitations->fetch()) {
         echo '<tr>';
         echo '<td>' . $habitation['idvalidations'] . '</td>';
         echo '<td>' . $habitation['habitation'] . '</td>';
-        echo '<td>' . $habitation['date'] . '</td>';
+        echo '<td>' . $habitation['DateFormatée'] . '</td>';
         echo '<td>' . $habitation['matricule'] . '</td>';
         echo '<td>' . $habitation['message'] . '</td>';
     }

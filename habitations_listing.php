@@ -16,11 +16,11 @@
                                 </thead>
 
 <?php
-date_default_timezone_set('Europe/Brussels');
 
 
 //préparation de la requete 
 
+require_once('config.php');
 
 $connection = mysqli_connect('localhost','eleve','eleve','gdp');
 $sql = "select*, DATE_FORMAT(datedebut,'%d-%m-%Y %H:%i') as dateDebutFormat, DATE_FORMAT(datefin,'%d-%m-%Y %H:%i') as dateFinFormat from gdp.habitations where datedebut <= now() and datefin >= now() order by datedebut asc";
@@ -29,14 +29,14 @@ $i = 1;
 while($row = mysqli_fetch_array($result)) 
 {
   ?>
-  <tr>
+  <tr data-toggle="modal" data-target="#myModal<?php echo $row['id'] ?>">
     <td><?= $row['id'] ?></td>
         <td><?=$row['adresse']?></td>
         <td><?=$row['localite']?></td>
         <td><?=$row['dateDebutFormat']?></td>
         <td><?=$row['dateFinFormat']?></td>
         <td>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $row['id'] ?>">Détails</button>
+          <button type="button" class="btn btn-primary">Détails</button>
         </td>
   </tr>
 <div class="modal fade" id="myModal<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
@@ -100,26 +100,3 @@ while($row = mysqli_fetch_array($result))
 
 </table>
 
-
-<script type="text/javascript">
-
-
-$('#tableauHabitations tr').on("click", function(e) {
-    document.location = "#myModal8"; 
-});
-
-
-
-
-// $(document).ready(function() {
-
-// $('#tableauHabitations tr').click(function() {
-//     var href = $(this).find("a").attr("href");
-//     if(href) {
-//         window.location = href;
-//     }
-// });
-
-// });
-
-</script>

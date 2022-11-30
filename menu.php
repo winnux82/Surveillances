@@ -80,7 +80,7 @@ $bootstrap = '"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.m
 
 
 <footer>
-    <p class="copyright">©Surveillances habitations v<?=$version?> by Vandermeulen Christophe - Tous droits réservés Copyright 2022</p>
+    <p class="copyright">© Surveillances habitations v<?=$version?> by Vandermeulen Christophe - Tous droits réservés Copyright 2022</p>
 </footer>
 
 </html>

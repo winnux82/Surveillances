@@ -24,7 +24,7 @@ require_once('config.php');
 
 $connection = mysqli_connect('localhost','eleve','eleve','gdp');
 $sql = "select*, DATE_FORMAT(datedebut,'%d-%m-%Y %H:%i') as dateDebutFormat, DATE_FORMAT(datefin,'%d-%m-%Y %H:%i') as dateFinFormat from gdp.habitations where datedebut <= now() and datefin >= now() order by datedebut asc";
-$result = mysqli_query($connection,$sql);
+$result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
 $i = 1;
 while($row = mysqli_fetch_array($result)) 
 {

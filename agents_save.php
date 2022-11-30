@@ -19,6 +19,8 @@ if (!is_numeric($position)) {
 if (isset($_POST['bAjoutAgent'])) {
 
     if ($position == null) {
+        if(!$agent['date'])
+            $agent['date']='2000/01/01';
 
         //Création du nouvel agent
         $db->query('insert into agents (nom,prenom,datedenaissance,matricule,adresse,cp,tel,dateupdate) values ("' . $agent['lastname'] . '","' . $agent['firstname'] . '","' . $agent['date'] . '","' . $agent['matricule'] . '","' . $agent['adresse'] . '","' . $agent['cp'] . '","' . $agent['tel'] . '","' . date('l j F Y h:i:s A') . '")') or die(print_r($db->errorInfo()));

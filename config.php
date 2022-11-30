@@ -35,6 +35,8 @@ try {
 }
 
 
+$connection = mysqli_connect('localhost','eleve','eleve','gdp');
+
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 // define('DB_SERVER', 'localhost');

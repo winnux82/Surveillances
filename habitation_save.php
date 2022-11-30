@@ -23,16 +23,16 @@ if (!is_numeric($position)) {
 if (isset($_POST['bAjouthabitation'])) {
 
     if ($position == null) {
-
+        setlocale(LC_TIME, 'fra_fra');
         //Création d'une nouvelle habitation
-        $db->query('insert into habitations (adresse,localite,demandeur,datedebut,datefin,mesures,vehicule,dateupdate) values ("' . $habitation['adresse'] . '","' . $habitation['localite'] . '","' . $habitation['demandeur'] . '","' . $habitation['datedebut'] . '","' . $habitation['datefin'] . '","' . $habitation['mesures'] . '","' . $habitation['vehicule'] . '","' . date('l j F Y h:i:s A') . '")') or die(print_r($db->errorInfo()));
+        $db->query('insert into habitations (adresse,localite,demandeur,datedebut,datefin,mesures,vehicule,dateupdate) values ("' . $habitation['adresse'] . '","' . $habitation['localite'] . '","' . $habitation['demandeur'] . '","' . $habitation['datedebut'] . '","' . $habitation['datefin'] . '","' . $habitation['mesures'] . '","' . $habitation['vehicule'] . '","' . strftime('%A %d %B %Y %H:%M:%S') . '")') or die(print_r($db->errorInfo()));
         header("location:habitations.php");
         exit;
     } else {
         //sinon update
     
         print_r($habitation);
-        $db->query('update habitations set adresse="' . $habitation['adresse'] . '", localite="' . $habitation['localite'] . '",demandeur="' . $habitation['demandeur'] .'",datedebut="' . $habitation['datedebut'] . '",datefin="' . $habitation['datefin'] . '", dateupdate="' . date('l j F Y h:i:s A') . '" where id="' . $position . '"') or die(print_r($db->errorInfo()));
+        $db->query('update habitations set adresse="' . $habitation['adresse'] . '", localite="' . $habitation['localite'] . '",demandeur="' . $habitation['demandeur'] .'",datedebut="' . $habitation['datedebut'] . '",datefin="' . $habitation['datefin'] . '", dateupdate="' . strftime('%A %d %B %Y %H:%M:%S') . '" where id="' . $position . '"') or die(print_r($db->errorInfo()));
 
         //Mise à jour de la date d'update
         //$db->query('update contact set creadate="' . date('l j F Y h:i:s A') . '", user="' . $_SESSION["username"] . '" where id="' . $_POST['contactid'] . '"') or die(print_r($db->errorInfo()));

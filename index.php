@@ -18,23 +18,6 @@ require_once('menu.php');
 
 <body>
 
-<script>
-function foo() {
-   //alert("Submit button clicked!");
-   x0p('Message', 'Hello world!', 'info');
-    }
-
-
-
-</script>
-
-<textarea class="form-control" id="txtArea" name="mesures" rows="4" cols="50">
-<?= $habitation['mesures'] ?? '' ?></textarea>
-
-
-<form action="" method="post">
-<input type="submit" value="submit" onclick="return foo();" />
-</form>
 
 
 </body>

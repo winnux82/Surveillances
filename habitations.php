@@ -47,7 +47,7 @@ if (isset($position)) {
     <div class="contenu m-2" >
 
 
-    <form action="habitation_sauvegarde.php" method="POST" enctype="multipart/form-data">
+    <form action="habitation_save.php" method="POST" enctype="multipart/form-data">
         <h1>Inscription surveillances habitations </h1>
         <fieldset>
             <?php if ($position === null) : ?>
@@ -124,10 +124,16 @@ if (isset($position)) {
 
         </fieldset>
     </form>
-
+    <script>
+$(document).ready(function($) {
+    $(".table-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+</script>
 <div class="right_Side">
 <h1><i class="fa fa-map-marker" aria-hidden="true"></i> Liste des habitations </h1><br>
-<table border="1" class="table table-light">
+<table border="1" class="table table-light table-hover ">
 <thead class="thead-light">
                                 <tr>
                                 <th>id</th>
@@ -151,14 +157,14 @@ if (isset($position)) {
         //$datedebut = DateTime::createFromFormat('d-M-Y', $habitation['datedebut']) or die(print_r($db->errorInfo()));
         //$datedebut->format('d-m-Y H:i:s');
 
-        echo '<tr>';
+        echo '<tr class="table-row" data-href="habitations.php?id=' . $habitation['id'] . '">';
         echo '<td>' . $habitation['id'] . '</td>';
         echo '<td>' . $habitation['adresse'] . '</td>';
         echo '<td>' . $habitation['localite'] . '</td>';
         echo '<td>' . $habitation['datededébut'] . '</td>';
         echo '<td>' . $habitation['datedefin'] . '</td>';
         // echo '<td>' . $habitation['mesures'] . '</td>';
-        echo '<td>' . $habitation['vehicule'] . '</td>';
+        echo '<td>' . $habitation['vehicule'] . '</td></a>';
         echo '<td><a href="habitations.php?id=' . $habitation['id'] . '">Modifier</a></td>';
         echo '<td><a onclick="return confirm(\'Voulez-vous vraiment supprimer cet élement ?\')" href="habitations.php?delhabitations=' . $habitation['id'] . ' " >Supprimer</a></td></tr>';
     }

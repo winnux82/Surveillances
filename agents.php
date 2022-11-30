@@ -43,7 +43,8 @@ if (isset($position)) {
 </head>
 
 <body>
-    <form action="sauvegarde.php" method="POST" enctype="multipart/form-data">
+<div class="contenu m-2" >
+    <form action="agents_save.php" method="POST" enctype="multipart/form-data">
     <h1>Liste des agents </h1>
         <fieldset>
             <?php if ($position === null) : ?>
@@ -110,7 +111,13 @@ if (isset($position)) {
 
         </fieldset>
     </form>
-
+<script>
+$(document).ready(function($) {
+    $(".table-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+</script>
 
 
     <?php
@@ -118,7 +125,7 @@ if (isset($position)) {
     // Exécution de la requête
     echo '<div class="right_Side">';
     echo '<h1><i class="fa fa-phone" aria-hidden="true"></i> Liste des agents </h1><br>';
-    echo '<table border="1" class="table table-light">';
+    echo '<table border="1" class="table table-light table-hover ">';
     echo '<thead class="thead-light">
                                 <tr>
                                 <th>Matricule</th>
@@ -132,8 +139,9 @@ if (isset($position)) {
     $agents = $db->query('select*from agents order by matricule asc') or die(print_r($db->errorInfo()));
     while ($Infos = $agents->fetch()) {
 
-        echo '<tr>';
-        echo '<td>A' . $Infos['matricule'] . '</td>';
+        echo '<tr class="table-row" data-href="agents.php?id=' . $Infos['id'] . '">';
+        //echo '<tr class="clickable-row" data-href="url://agents.php?id=' . $Infos['id'] . '">';
+        echo '<td>' . $Infos['matricule'] . '</td>';
         echo '<td>' . $Infos['nom'] . '</td>';
         echo '<td>' . $Infos['prenom'] . '</td>';
         echo '<td>' . $Infos['tel'] . '</td>';
@@ -159,6 +167,6 @@ if (isset($position)) {
         
     }
     ?>
-
+</div>
 </body>
 </html>

@@ -3,7 +3,6 @@
   "version": "1.1.2",
   "description": "Surveillances Habitations pour le service GDP Mouscron BE",
   "main": "main.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/winnux82/Surveillances/issues"
   },
-  "homepage": "https://github.com/winnux82/Surveillances#readme"
+  "homepage": "https://github.com/winnux82/Surveillances#readme",
+  "dependencies": {
+    "axios": "^1.2.0"
+  }
 }

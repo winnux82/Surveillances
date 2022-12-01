@@ -32,7 +32,7 @@ require_once('config.php');
 
 <?php
     //write to json file
-    $fp = fopen('empdata.json', 'w');
+    $fp = fopen('data.json', 'w');
     fwrite($fp, json_encode($emparray));
     fclose($fp);
 ?>
